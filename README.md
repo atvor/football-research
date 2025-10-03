@@ -1,3 +1,24 @@
+# Run on Windows inside WSL with Docker
+### Build 
+```
+docker build -t grf --build-arg DOCKER_BASE=nvidia/cuda:11.8.0-devel-ubuntu20.04 .
+```
+
+### Run (GPU, headless)
+```
+docker run --rm -it --gpus all grf
+```
+
+### Run with graphics (Win11 + WSLg, no extra X-server needed)
+```
+docker run --rm -it --gpus all \
+  -e DISPLAY=$DISPLAY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  grf python3 -m gfootball.play_game --action_set=full
+```
+
+---
+
 # Google Research Football
 
 This repository contains an RL environment based on open-source game Gameplay
